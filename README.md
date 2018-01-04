@@ -66,11 +66,55 @@ To create a new HipChat room:
 
 To get the room history:
 ```javascript
-     /////////// getRoomHistory /////////////////////
-     /// Assuming the room name is stored in the `issue_key` property:
-     var history = HipChat.getRoomHistory( callback.eventProperties.issue_key );
-	 ////////////////////////////////////////////////
+    /////////// getRoomHistory /////////////////////
+    /// Assuming the room name is stored in the `issue_key` property:
+    var chatData = HipChat.getRoomHistory( callback.eventProperties.issue_key );
+    
+    // Then, massage for display in Jira:
+    var chatText = buildHipChatText( chatData );
+    
+    // Send to Jira...
+     
+
+	function buildHipChatText( data ) {
+	
+	
+		if( !data.items )
+			return "No HipChat Text Found.";
+	
+		items = data.items;
+	
+		var textArr = items.map( function( item ){
+		    baddate = item.date;
+		    baddate = baddate.slice( 0, baddate.indexOf( '.' )+1 ) + baddate.slice( baddate.indexOf( '.' )+4 );
+			var date = formatDate( new Date( baddate ) );
+	
+			var str = '{color:gray}' + date + '{color} ';
+			if( item.from.mention_name ) 
+				str += '*' + item.from.mention_name + '*';
+			else
+				str += '*' + item.from + '*';
+	
+			str += ': ' + item.message;
+	
+			return str;
+		});
+	
+	
+		return textArr.join( "\n" );
+	}
+	
+	function formatDate( date ) {
+	    
+	    
+	    //console.log( "formatDate: " + date + '. Year: ' + date.getFullYear() );
+		return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + 'Z';
+	}
+
+     ////////////////////////////////////////////////
 ```
+
+
 
 
 # Testing
