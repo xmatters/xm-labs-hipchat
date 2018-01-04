@@ -1,2 +1,63 @@
-# xm-labs-hipchat-transcript
-Pulls the entire room transcript for Hipchat for use in other applications.
+# HipChat Helper
+Pulls the entire room transcript for HipChat for use in other applications.
+
+<kbd>
+  <img src="https://github.com/xmatters/xMatters-Labs/raw/master/media/disclaimer.png">
+</kbd>
+
+# Pre-Requisites
+* HipChat account
+* Existing communication plan - Use a packaged integration from the [integrations](https://xmatters.com/integrations) page, or [build your own](https://support.xmatters.com/hc/en-us/articles/202396229)
+* xMatters account - If you don't have one, [get one](https://www.xmatters.com)!
+
+# Files
+* [HipChat.js](HipChat.js) - This is the code for the Shared Library that abstracts the interactions with HipChat to a higher level.
+
+# Installation
+Details of the installation go here. 
+
+## HipChat set up
+1. Login to HipChat and navigate to the `Account Settings` page. Click on `API access`. 
+2. In the Create new token section, select all the scopes and give it a label, such as `xMatters`. 
+
+<kbd>
+  <img src="media/hipchat-token.png" width="600">
+</kbd>
+
+(Note, this will tie the token to your user account, if that is undesirable, create a new user, login as that user and then generate the token as below.)
+
+3. Copy the token value for later. 
+
+
+
+## xMatters set up
+
+1. Log in to your xMatters instance as a user with the Developer role (or anyone with access to the target communication plan). On the Developer tab, click Edit > Integration Builder for the target communication plan. 
+2. Click `Edit Endpoints`, and then click `Add Endpoint` to add an endpoint for HipChat; fill out the following details:
+
+   | Item | Selection |
+   | ---- | --------- |
+   | Name | HipChat |
+   | Base URL | Base URL for your HipChat instance |
+   | Authorization Type | None |   
+
+3. Click `Edit Constants`, and then click `Add Constant`. fill out the following details:
+
+   | Item | Selection |
+   | ---- | --------- |
+   | Name | HipChat Token |
+   | Description | Token for authenticating into HipChat |
+   | Value | Token Value from above | 
+4. Click Save.
+
+### Updating Scripts
+**From here the next steps will depend on how xMatters will integrate to HipChat**
+
+
+
+
+# Testing
+Be specific. What should happen to make sure this code works? What would a user expect to see? 
+
+# Troubleshooting
+Optional section for how to troubleshoot. Especially anything in the source application that an xMatters developer might not know about, or specific areas in xMatters to look for details - like the Activity Stream? 
