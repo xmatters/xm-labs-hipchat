@@ -1,5 +1,5 @@
 # HipChat Helper
-Pulls the entire room transcript for HipChat for use in other applications.
+Various helper functions for working with HipChat from xMatters. 
 
 <kbd>
   <img src="https://github.com/xmatters/xMatters-Labs/raw/master/media/disclaimer.png">
@@ -28,8 +28,6 @@ Details of the installation go here.
 
 3. Copy the token value for later. 
 
-
-
 ## xMatters set up
 
 1. Log in to your xMatters instance as a user with the Developer role (or anyone with access to the target communication plan). On the Developer tab, click Edit > Integration Builder for the target communication plan. 
@@ -53,11 +51,29 @@ Details of the installation go here.
 ### Updating Scripts
 **From here the next steps will depend on how xMatters will integrate to HipChat**
 
+To create a new HipChat room:
+```javascript
+	 ////////////  createRoom ////////////////
+     HipChat.setInstance( 'HipChat', constants['HipChat Token'] );
+     var payload = {
+	 	"name": data.issue_key,
+	 	"topic": 'xMatters Engage: ' + summary
+	 };
 
+	 var room = HipChat.createRoom( payload );
+	 ////////////////////////////////////////////////
+```
+
+To get the room history:
+```javascript
+     /////////// getRoomHistory /////////////////////
+     /// Assuming the room name is stored in the `issue_key` property:
+     var history = HipChat.getRoomHistory( callback.eventProperties.issue_key );
+	 ////////////////////////////////////////////////
+```
 
 
 # Testing
-Be specific. What should happen to make sure this code works? What would a user expect to see? 
 
 # Troubleshooting
-Optional section for how to troubleshoot. Especially anything in the source application that an xMatters developer might not know about, or specific areas in xMatters to look for details - like the Activity Stream? 
+The Activity Stream will have output of all HTTP requests as well as any additional debugging. 
