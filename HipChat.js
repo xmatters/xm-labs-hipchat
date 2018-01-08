@@ -110,8 +110,6 @@ exports.createRoom = function( payload ) {
 
 
 
-}
-
 /**
 * 
 * @param {String}    
